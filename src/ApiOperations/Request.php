@@ -69,7 +69,7 @@ trait Request
     }
 
 
-    private static function setHttpResponse(string $method, string $url, array $body = []): \GuzzleHttp\Psr7\Response
+    private static function setHttpResponse(string $method, string $url, array $body = []): \Psr\Http\Message\ResponseInterface
     {
 
         static::setRequestOptions();
@@ -85,12 +85,12 @@ trait Request
 
     private static function getResponse(): array
     {
-        return json_decode(static::$response->getBody(), true);
+        return json_decode((string) static::$response->getBody(), true);
     }
 
 
     private static function getResponseData(): array
     {
-        return json_decode(static::$response->getBody(), true)['data'];
+        return json_decode((string) static::$response->getBody(), true)['data'];
     }
 }
